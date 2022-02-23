@@ -1,0 +1,26 @@
+<div [hidden]="IsAddNew">
+    <h1>Customer List</h1>
+    <input type="button" value="Add New" (click)="AddNew()">
+    <table border="1">
+        <tr>
+            <th>FName</th><th>LName</th>
+        </tr>
+        <tr *ngFor="let item of Customers">
+            <td>{{item.FName}}</td><td>{{item.LName}}</td>
+        </tr>
+    </table>
+</div>
+<div [hidden]="!IsAddNew" ngForm #myForm="ngForm">
+    <h1>Add New Customer </h1>
+    First Name: <input type="text" name="FName" [(ngModel)]="this.FirstName" required minlength="3" #F="ngModel">
+    <br>
+    <span [hidden]="!(F.dirty && F.errors?.['required'])">Enter First Name</span>
+    <span [hidden]="!(F.dirty && F.errors?.['minlength'])">Minimum 3 characters needed for First Name</span>
+    <br>
+    Last Name: <input type="text" name="LName" [(ngModel)]="this.LastName" required minlength="3" #L="ngModel"><br>
+    <span [hidden]="!(L.dirty && L.errors?.['required'])">Enter Last Name</span>
+    <span [hidden]="!(L.dirty && L.errors?.['minlength'])">Minimum 3 characters needed for Larst Name</span>
+    <br>
+    <input type="button" value="Save" (click)="Save()" [disabled]="myForm.invalid"> &nbsp; 
+    <input type="button" value="Cancel" (click)="Cancel()">
+</div>
